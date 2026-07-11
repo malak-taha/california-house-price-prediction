@@ -25,22 +25,23 @@ longitude = st.slider("Longitude", -124.3, -114.3, -119.5)
 
 # 4. Trigger Prediction
 if st.button("Predict Price"):
-    # Explicitly convert all slider inputs to float to prevent any type errors
-    features = [
-        float(med_inc), 
-        float(house_age), 
-        float(ave_rooms), 
-        float(ave_bedrms), 
-        float(population), 
-        float(ave_occup), 
-        float(latitude), 
-        float(longitude)
-    ]
+    # Create a dictionary with the exact feature names the model expects
+    input_dict = {
+        'MedInc': float(med_inc),
+        'HouseAge': float(house_age),
+        'AveRooms': float(ave_rooms),
+        'AveBedrms': float(ave_bedrms),
+        'Population': float(population),
+        'AveOccup': float(ave_occup),
+        'Latitude': float(latitude),
+        'Longitude': float(longitude)
+    }
     
-    input_data = np.array([features])
+    # Convert the dictionary into a DataFrame (this gives features their exact names)
+    input_df = pd.DataFrame([input_dict])
     
-    # Make the prediction using the loaded model
-    prediction = loaded_model.predict(input_data)
+    # Make the prediction using the DataFrame
+    prediction = loaded_model.predict(input_df)
     
     # Scale the result back to actual dollars ($100k units)
     final_price = prediction[0] * 100000
