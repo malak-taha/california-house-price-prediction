@@ -41,5 +41,4 @@ The model was trained using an **XGBoost Regressor** (`XGBRegressor`) and achiev
 ```text
 ├── House_Price_Prediction.ipynb   # Comprehensive Google Colab notebook
 ├── xgboost_housing_model.pkl      # The trained and serialized XGBoost model
-├── app.py                         # Production-ready Streamlit application UI code
 └── requirements.txt               # List of required Python packages for deployment
