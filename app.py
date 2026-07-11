@@ -25,9 +25,23 @@ longitude = st.slider("Longitude", -124.3, -114.3, -119.5)
 
 # 4. Trigger Prediction
 if st.button("Predict Price"):
-    input_data = np.array([[med_inc, house_age, ave_rooms, ave_bedrms, population, ave_occup, latitude, longitude]])
+    # Explicitly convert all slider inputs to float to prevent any type errors
+    features = [
+        float(med_inc), 
+        float(house_age), 
+        float(ave_rooms), 
+        float(ave_bedrms), 
+        float(population), 
+        float(ave_occup), 
+        float(latitude), 
+        float(longitude)
+    ]
+    
+    input_data = np.array([features])
+    
+    # Make the prediction using the loaded model
     prediction = loaded_model.predict(input_data)
     
-    # Scale result back to dollars (as California target is in $100k units)
+    # Scale the result back to actual dollars ($100k units)
     final_price = prediction[0] * 100000
     st.success(f"💰 Estimated House Price: ${final_price:,.2f}")
